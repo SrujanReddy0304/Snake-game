@@ -29,7 +29,7 @@ function drawGame() {
     checkAppleCollision();
     drawApple();
     drawSnake();
-    drawScore();
+    // Removed drawScore() from here as we will update the score in the HTML directly
 
     setTimeout(drawGame, 1000 / speed);
 }
@@ -56,24 +56,17 @@ function isGameOver() {
     }
 
     if (gameOver) {
-        ctx.fillStyle = "white";
-        ctx.font = "50px Verdana";
-        ctx.fillText("Game Over!", canvas.width / 6.5, canvas.height / 2);
         // Show the retry button
         document.getElementById('retryButton').style.display = 'block';
+        // Call the new function to show the game over message
+        showGameOver();
     }
 
     return gameOver;
 }
 
-function drawScore() {
-    ctx.fillStyle = "white";
-    ctx.font = "10px Verdana";
-    ctx.fillText("Score " + score, canvas.width - 50, 10);
-}
-
 function clearScreen() {
-    ctx.fillStyle = 'white';
+    ctx.fillStyle = 'black';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
@@ -109,6 +102,8 @@ function checkAppleCollision() {
         appleY = Math.floor(Math.random() * tileCount);
         tailLength++;
         score++;
+        // Update the score in the HTML
+        document.getElementById('score').textContent = score;
     }
 }
 
@@ -161,6 +156,7 @@ function resetGame() {
     tailLength = 2;
     score = 0;
     snakeParts.length = 0; // Clear the snake parts array
+    document.getElementById('score').textContent = score; // Reset the score in the HTML
 
     // Hide the retry button
     document.getElementById('retryButton').style.display = 'none';
@@ -169,6 +165,15 @@ function resetGame() {
     drawGame();
 }
 
+function showGameOver() {
+}
+
+function showGameOver() {
+    // Show a game over message with the score
+    alert(`Game Over! Your score was: ${score}`);
+}
+
 document.getElementById('retryButton').addEventListener('click', resetGame);
 
+// Start the game
 drawGame();
