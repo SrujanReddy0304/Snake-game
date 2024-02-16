@@ -5,18 +5,19 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #000; /* Background color of the entire page */
+    background-color: #000; /* Black background for the entire page */
     font-family: 'Arial', sans-serif;
+    color: white; /* Default text color set to white for better visibility */
 }
 
 canvas {
-    border: 1px solid #000;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
-    background-color: #fff; /* Background color of the game canvas */
+    border: 1px solid #fff; /* White border for the canvas */
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.4); /* White glow for the canvas */
+    background-color: #000; /* Black background for the canvas */
 }
 
 .score {
-    color: white; /* Color of the score text for better visibility */
+    color: white; /* White color for the score text */
     font-size: 18px;
     position: absolute;
     top: 20px;
@@ -28,7 +29,7 @@ canvas {
     padding: 10px 20px;
     font-size: 16px;
     color: white;
-    background-color: #5cb85c; /* Background color of the retry button */
+    background-color: #5cb85c; /* Green background for the retry button */
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -41,5 +42,5 @@ canvas {
 }
 
 #retryButton:hover {
-    background-color: #4cae4c; /* Color of the retry button on hover */
+    background-color: #4cae4c; /* Darker green color on hover */
 }

@@ -67,7 +67,7 @@ function isGameOver() {
 }
 
 function drawScore() {
-    ctx.fillStyle = "black";
+    ctx.fillStyle = "white";
     ctx.font = "10px Verdana";
     ctx.fillText("Score " + score, canvas.width - 50, 10);
 }
@@ -78,7 +78,7 @@ function clearScreen() {
 }
 
 function drawSnake() {
-    ctx.fillStyle = 'green';
+    ctx.fillStyle = 'white';
     for (let i = 0; i < snakeParts.length; i++) {
         let part = snakeParts[i];
         ctx.fillRect(part.x * tileCount, part.y * tileCount, tileSize, tileSize);
