@@ -1,12 +1,3 @@
-.score {
-    color: white; /* White color for the score text */
-    font-size: 18px;
-    position: absolute;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1;
-}
 body {
     margin: 0;
     padding: 0;
@@ -25,7 +16,14 @@ canvas {
     background-color: #000; /* Black background for the canvas */
 }
 
-
+.score {
+    color: white; /* White color for the score text */
+    font-size: 18px;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
 
 #retryButton {
     padding: 10px 20px;
