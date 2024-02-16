@@ -8,20 +8,20 @@ let tileSize = canvas.width / tileCount - 2;
 let headX = 10;
 let headY = 10;
 const snakeParts = [];
-let tailLength = 2; 
+let tailLength = 2;
 
 let appleX = 5;
 let appleY = 5;
 
-let xVelocity=0;
-let yVelocity=0;
+let xVelocity = 0;
+let yVelocity = 0;
 
 let score = 0;
 
 function drawGame() {
     changeSnakePosition();
     let result = isGameOver();
-    if(result) {
+    if (result) {
         return;
     }
 
@@ -31,25 +31,25 @@ function drawGame() {
     drawSnake();
     drawScore();
 
-    setTimeout(drawGame, 1000/ speed);
+    setTimeout(drawGame, 1000 / speed);
 }
 
 function isGameOver() {
     let gameOver = false;
 
-    if(yVelocity ===0 && xVelocity ===0){
+    if (yVelocity === 0 && xVelocity === 0) {
         return false;
     }
 
     // Walls
-    if(headX < 0 || headX === tileCount || headY < 0 || headY === tileCount) {
+    if (headX < 0 || headX === tileCount || headY < 0 || headY === tileCount) {
         gameOver = true;
     }
 
     // Self collision
-    for(let i = 0; i < snakeParts.length; i++) {
+    for (let i = 0; i < snakeParts.length; i++) {
         let part = snakeParts[i];
-        if(part.x === headX && part.y === headY) {
+        if (part.x === headX && part.y === headY) {
             gameOver = true;
             break;
         }
@@ -59,6 +59,8 @@ function isGameOver() {
         ctx.fillStyle = "white";
         ctx.font = "50px Verdana";
         ctx.fillText("Game Over!", canvas.width / 6.5, canvas.height / 2);
+        // Show the retry button
+        document.getElementById('retryButton').style.display = 'block';
     }
 
     return gameOver;
@@ -67,44 +69,44 @@ function isGameOver() {
 function drawScore() {
     ctx.fillStyle = "black";
     ctx.font = "10px Verdana";
-    ctx.fillText("Score " + score, canvas.width-50, 10);
+    ctx.fillText("Score " + score, canvas.width - 50, 10);
 }
 
 function clearScreen() {
     ctx.fillStyle = 'white';
-    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
 function drawSnake() {
     ctx.fillStyle = 'green';
-    for(let i = 0; i < snakeParts.length; i++) {
+    for (let i = 0; i < snakeParts.length; i++) {
         let part = snakeParts[i];
         ctx.fillRect(part.x * tileCount, part.y * tileCount, tileSize, tileSize);
     }
 
-    snakeParts.push(new SnakePart(headX, headY)); //put an item at the end of the list next to the head
-    if(snakeParts.length > tailLength){
-        snakeParts.shift(); //remove the furthers item from the snake parts if we have more than our tail size.
+    snakeParts.push(new SnakePart(headX, headY));
+    if (snakeParts.length > tailLength) {
+        snakeParts.shift();
     }
 
     ctx.fillStyle = 'orange';
     ctx.fillRect(headX * tileCount, headY * tileCount, tileSize, tileSize);
 }
 
-function changeSnakePosition(){
+function changeSnakePosition() {
     headX = headX + xVelocity;
     headY = headY + yVelocity;
 }
 
 function drawApple() {
     ctx.fillStyle = "red";
-    ctx.fillRect(appleX* tileCount, appleY* tileCount, tileSize, tileSize);
+    ctx.fillRect(appleX * tileCount, appleY * tileCount, tileSize, tileSize);
 }
 
 function checkAppleCollision() {
-    if(appleX === headX && appleY == headY) {
+    if (appleX === headX && appleY == headY) {
         appleX = Math.floor(Math.random() * tileCount);
-        ppleY = Math.floor(Math.random() * tileCount);
+        appleY = Math.floor(Math.random() * tileCount);
         tailLength++;
         score++;
     }
@@ -112,32 +114,32 @@ function checkAppleCollision() {
 
 function keyDown(event) {
     // Up
-    if(event.keyCode == 38) {
-        if(yVelocity == 1)
+    if (event.keyCode == 38) {
+        if (yVelocity == 1)
             return;
         yVelocity = -1;
         xVelocity = 0;
     }
 
     // Down
-    if(event.keyCode == 40) {
-        if(yVelocity == -1)
+    if (event.keyCode == 40) {
+        if (yVelocity == -1)
             return;
         yVelocity = 1;
         xVelocity = 0;
     }
 
     // Left
-    if(event.keyCode == 37) {
-        if(xVelocity == 1)
+    if (event.keyCode == 37) {
+        if (xVelocity == 1)
             return;
         yVelocity = 0;
         xVelocity = -1;
     }
 
     // Right
-    if(event.keyCode == 39) {
-        if(xVelocity == -1)
+    if (event.keyCode == 39) {
+        if (xVelocity == -1)
             return;
         yVelocity = 0;
         xVelocity = 1;
@@ -150,5 +152,23 @@ function SnakePart(x, y) {
     this.x = x;
     this.y = y;
 }
+
+function resetGame() {
+    headX = 10;
+    headY = 10;
+    xVelocity = 0;
+    yVelocity = 0;
+    tailLength = 2;
+    score = 0;
+    snakeParts.length = 0; // Clear the snake parts array
+
+    // Hide the retry button
+    document.getElementById('retryButton').style.display = 'none';
+
+    // Start the game again
+    drawGame();
+}
+
+document.getElementById('retryButton').addEventListener('click', resetGame);
 
 drawGame();
